@@ -1,0 +1,98 @@
+Todays is Feb 6 2020
+    Agenda: Cucumber BDD with RestAssured
+Let's start with new project:
+project name: BookitAutomationSummer2019
+group id: com.bookit
+question: Where do you take dependencies?
+In my project, due to security reasons, we couldn't download dependencies from mvnrepository. Instead, we had local maven repository that calls nexus. Nexus, it's a mirror of mvnrepository. If there is no library that we need, we could request to add some library, and if that library is approved by security team, we could use later on.
+IN settings.xml file, that is next to .m2 folder, you can specify mirror for mvnrepository. So if company doesn't let you to download from central repository, most likely they have local mvn repository mirror.
+.m2 -> local maven repository. This is the folder, where maven keeps downloaded jars.
+You can say that you find all dependencies on mvnrepository web site and then you add it into pom.xml file.
+Q: Do we have to choose always last version ?
+ - no,
+ first of all, latest version might not be stable. (can have some bugs)
+ latest version might not get along with other libraries that you have.
+ Since new versions don't usually bring new features, sometimes it's better to not update. In my project, cucumber was very old, like 1.2, when there was already 4.
+ Don't use beta/alpha versions. It's a versions for open testing.
+ If you created framework from scratch:
+ based on my research, I found cucumber + junit good combination. Overall junit is more popular unit testing framework than testng. And the only thing that I need from junit is to trigger runner class and assertions. But, there is not problem to use cucumber with testng.
+ What advantages testng has over the junit?
+    -more annotations
+    -data provider for DDT
+    -xml runners
+    -report
+    when you use cucumber, you don't need any of them.
+xml runners - we have cucumber/cuckesrunenr classes
+annotations - we have hooks, plus we can create our own annotations and put on top of features and scenarios
+data provider for DDT - Scenario Outline.
+We learned Oracle data base. Oracle - it's a RDBMS
+Relational
+Data
+Base
+Management
+System
+So it works with SQL. Relational - because there are tables, and they related to each other based on the key.
+There are many RDBMS: Oracle, PostgreSQL, IBM Informix, Microsoft SQL Server, MySQL
+They all have something in common: SQL
+You can write/execute SQL queries on any RDBMS.
+Syntax is a little different, but most of the queries will be the same:
+SELECT, UPDATE, DELETE, INSERT
+joins
+union
+etc... same
+To connect from java program to the RDBMS we need to add JDBC driver. For Oracle - it's OJDBC, for PostgreSQL, it's this one:
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.2.9</version>
+</dependency>
+ <dependencies>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>5.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>5.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.9</version>
+        </dependency>
+    </dependencies>
+    <build>
+<!--        http://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html-->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
